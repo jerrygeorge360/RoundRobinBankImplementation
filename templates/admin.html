@@ -1,0 +1,86 @@
+<!doctype html>
+<html lang="en">
+ <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Montserrat:wght@400;500;600&display=swap"
+      rel="stylesheet"
+    />
+
+    <link rel="stylesheet" href="style/app.css" />
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.0.1/socket.io.js"></script>
+
+    <title>Bank Issue Scheduler</title>
+  </head>
+  <body>
+
+  <div id="taskStatsContainer"></div>
+  <div class="waittime"></div>
+
+    <div class="divme" id="divme"></div>
+    <script>
+        var socket = io.connect('http://' + document.domain + ':' + location.port );
+
+        socket.on("jerry",function (data) {
+            const report = data["report"]
+
+        report.forEach((x) => {
+        })
+
+            const name_of_completed_task = report[0]
+            const name_of_completed_tasks_bust_time_original = report[1]
+            const turn_around_time = report[2]
+            const wait_time = report[3]
+            const avg_time = data["average_wait_time"]
+            console.log(name_of_completed_task)
+            console.log(name_of_completed_tasks_bust_time_original)
+            console.log(turn_around_time)
+            console.log(wait_time)
+            console.log(avg_time)
+
+            for(let i=0;i<report.length;i++){
+                document.getElementById("taskStatsContainer").innerHTML+=
+                    `<div style="border: 1px solid #ccc; border-radius: 10px; padding: 20px; font-family: 'Georgia'; box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);">
+    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px;">
+        <div style="font-size: 24px; font-weight: bold; color: #333;">Task Completed:</div>
+        <div style="font-size: 20px; font-weight: bold; color: #007bff;">${report[i][0]}</div>
+    </div>
+    <div style="margin-bottom: 10px; font-size: 16px; color: #555;">Bust Time: ${report[i][1]}</div>
+    <div style="margin-bottom: 10px; font-size: 16px; color: #555;">Turn Around Time: ${report[i][2]}</div>
+    <div style="font-size: 16px; color: #555;">Wait Time: ${report[i][3]}</div>
+</div>
+
+
+`
+
+
+
+            }
+            document.getElementById("waittime").innerHTML=`<br><div>average wait time: ${avg_time}</div>`
+
+        })
+
+
+    </script>
+
+  </body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -1,0 +1,353 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.0.1/socket.io.js"></script>
+      <link rel="stylesheet" href="/style/app.css" />
+    <title>Document</title>
+    <style>
+      .grid-container {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 40px;
+        padding: 40px;
+      }
+
+      .card {
+        border: 1px solid rgb(145, 145, 145);
+        background-color: white;
+        padding: 30px;
+      }
+
+      h2 {
+        margin-top: 0;
+        font-size: 30px;
+      }
+
+      .button-element {
+        margin-top: 10px;
+      }
+
+      .content-wrapper {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-top: 10px;
+        flex-direction: row-reverse;
+      }
+
+      .request-button {
+        padding: 13px 30px;
+        background-color: crimson;
+        border: none;
+        color: white;
+        font-size: 19px;
+        cursor: pointer;
+      }
+
+      .increment {
+        background-color: crimson;
+        border: none;
+        margin: 5px;
+        color: white;
+        width: 30px;
+        height: 30px;
+        font-size: 25px;
+      }
+      #decrease,
+      #increase {
+        background-color: crimson;
+        border: none;
+        margin: 5px;
+        color: white;
+        width: 30px;
+        height: 30px;
+        font-size: 25px;
+      }
+      .simulate{
+          margin-left: 500px;
+          background-color: blue;
+          padding: 13px 30px;
+          color: white;
+          font-size: 15px;
+      }
+    </style>
+  </head>
+  <body style="background-color: #fefcfc">
+    <nav style="height: 100px; width: 100%; background-color: crimson"></nav>
+    <div style="margin: 50px 100px">
+      <div style="font-size: 50px; font-weight: 900">Customer support</div>
+
+      <div
+        style="
+          font-size: 20px;
+          font-weight: 700;
+          margin-top: 7px;
+          margin-left: 4px;
+          margin-bottom: 25px;
+        "
+      >
+        How may we help you?
+      </div>
+      <div class="counter-container" style=" border: 1px solid black;width: 150px;display: flex; justify-content: center; align-items: center; flex-direction: column ; padding: 15px;">
+        <div style="font-weight: 900; margin-bottom: 10px; font-size: 20px;">Time Slice</div>
+        <div>
+            <button id="decrease">-</button>
+            <span id="count">0</span>
+            <button id="increase">+</button>
+        </div>
+      </div>
+      <div class="grid-container" id="gridContainer"></div>
+        <button id="submit" class="simulate">simulate</button>
+    </div>
+
+    <script>
+      const cardData = [
+        {
+          title: "Fraud/Unauthorized",
+          description: "Unauthorized charges or misuse.",
+        },
+        {
+          title: "ATM Issues",
+          description:
+            "Problems with ATMs: malfunction, lost cards, wrong money.",
+        },
+        {
+          title: "Overdraft Charges",
+          description: "Fee for negative balance.",
+        },
+        {
+          title: "Card Delivery Delays",
+          description:
+            "Delays in receiving debit or credit card or being charged for a card that was not received.",
+        },
+        {
+          title: "Poor Customer Service",
+          description:
+            "Poor customer service or long wait times on the phone or in-person",
+        },
+        {
+          title: "Online Banking Issues",
+          description:
+            "Issues with online banking such as unable to log in, transaction errors, or glitches.",
+        },
+        {
+          title: "Various Fee Charges",
+          description:
+            "Fees such as service fees, ATM fees, or foreign transaction fees.",
+        },
+        {
+          title: "Balance Mistakes",
+          description: "Errors in account balance.",
+        },
+        {
+          title: "Security Breaches",
+          description:
+            "Security breaches like phishing attacks or data breaches that affect customers' personal and financial information.",
+        },
+        {
+          title: "Payment Confusion",
+          description:
+            "Missed payments or late fees due to confusion about account terms or incorrect billing information.",
+        },
+      ];
+
+      const gridContainer = document.getElementById("gridContainer");
+
+      for (let i = 0; i < cardData.length; i++) {
+        const data = cardData[i];
+
+        const cardElement = document.createElement("div");
+        cardElement.className = "card";
+        cardElement.id = (i + 1 + "card").toString(); // IDs start from 1
+
+        const titleElement = document.createElement("h2");
+        titleElement.textContent = data.title;
+        cardElement.appendChild(titleElement);
+
+        const descriptionElement = document.createElement("p");
+        descriptionElement.textContent = data.description;
+        cardElement.appendChild(descriptionElement);
+
+        const contentWrapper = document.createElement("div");
+        contentWrapper.className = "content-wrapper";
+
+        const counterElement = document.createElement("div");
+        counterElement.className = "counter";
+
+        const minusButton = document.createElement("button");
+        minusButton.textContent = "-";
+        minusButton.className = "increment-btn";
+        counterElement.appendChild(minusButton);
+
+        const countDisplay = document.createElement("span");
+                countDisplay.id = (i + 1 + "e").toString();
+
+        countDisplay.className = "counter-value"
+        countDisplay.textContent = "0";
+        counterElement.appendChild(countDisplay);
+
+        const plusButton = document.createElement("button");
+        plusButton.textContent = "+";
+        plusButton.className = "increment-btn";
+        counterElement.appendChild(plusButton);
+
+        contentWrapper.appendChild(counterElement);
+
+        const requestButton = document.createElement("button");
+        requestButton.textContent = "Request";
+        requestButton.className = "request-button";
+        requestButton.id = (i + 1 + "btn").toString();
+        contentWrapper.appendChild(requestButton);
+
+        requestButton.addEventListener("click" , () => {
+
+            requestButton.disabled = true
+            if (requestButton.disabled) {
+                requestButton.textContent = "Requested"
+                requestButton.style.backgroundColor = "gray"
+            }
+        })
+
+        cardElement.appendChild(contentWrapper);
+
+        gridContainer.appendChild(cardElement);
+      }
+
+      const counterButtons = document.querySelectorAll(".counter button");
+      counterButtons.forEach((button) => {
+        button.addEventListener("click", () => {
+          const countDisplay = button.parentElement.querySelector("span");
+          let count = parseInt(countDisplay.textContent);
+          if (button.textContent === "+") {
+            count++;
+          } else if (button.textContent === "-" && count > 0) {
+            count--;
+          }
+          countDisplay.textContent = count;
+        });
+      });
+
+      const decreaseButton = document.getElementById("decrease");
+      const increaseButton = document.getElementById("increase");
+      const countDisplay = document.getElementById("count");
+
+      let count = 0;
+
+      decreaseButton.addEventListener("click", () => {
+        if (count > 0) {
+          count--;
+          countDisplay.textContent = count;
+        }
+      });
+
+      increaseButton.addEventListener("click", () => {
+        count++;
+        countDisplay.textContent = count;
+      });
+
+
+
+
+
+
+    {#  LISTENERS#}
+
+
+
+
+    </script>
+  <script type="text/javascript">
+      let apple;
+      let general_array;
+      general_array=[]
+        var socket = io.connect('http://' + document.domain + ':' + location.port);
+        socket.on('check_thou', function(data) {
+
+            console.log('Received response:', data["data"]);
+        });
+
+        document.getElementById("1btn").addEventListener("click",function (){
+                         let bustTime;
+                            bustTime = Number(document.getElementById("1e").textContent)
+
+
+                        general_array.push({id:"Fraud/Unauthorized",bust_time:bustTime,arrival_time: 0,time_quantum: count})
+                {#socket.emit("touches",{data:{id:"Fraud/Unauthorized",bust_time:bustTime,arrival_time: 0,time_quantum: count}})#}
+        })
+        document.getElementById("2btn").addEventListener("click",function (){
+            let bustTime;
+            bustTime = Number(document.getElementById("2e").textContent)
+
+general_array.push({id:"Atm Issues",bust_time:bustTime,arrival_time: 0,time_quantum: count})
+                {#socket.emit("touches",{data:{id:"ATM Issues",bust_time:bustTime,arrival_time: 0,time_quantum: count}})#}
+        })
+        document.getElementById("3btn").addEventListener("click",function (){
+                        let bustTime
+                            bustTime = Number(document.getElementById("3e").textContent)
+
+general_array.push({id:"Overdraft charges",bust_time:bustTime,arrival_time: 0,time_quantum: count})
+                {#socket.emit("touches",{data:{id:"Overdraft Charges",bust_time:bustTime,arrival_time: 0,time_quantum: count}})#}
+        })
+        document.getElementById("4btn").addEventListener("click",function (){
+            let bustTime
+            bustTime = Number(document.getElementById("4e").textContent)
+general_array.push({id:"Card Delivery Delays",bust_time:bustTime,arrival_time: 0,time_quantum: count})
+                {#socket.emit("touches",{data:{id:"Card delivery Delays",bust_time:bustTime,arrival_time: 0,time_quantum: count}})#}
+        })
+        document.getElementById("5btn").addEventListener("click",function (){
+                           let bustTime
+                            bustTime = Number(document.getElementById("5e").textContent)
+general_array.push({id:"Poor Customer Service",bust_time:bustTime,arrival_time: 0,time_quantum: count})
+                {#socket.emit("touches",{data:{id:"Poor Customer Service",bust_time:bustTime,arrival_time: 0,time_quantum: count}})#}
+        })
+        document.getElementById("6btn").addEventListener("click",function (){
+            console.log("dad")
+                        let bustTime;
+                            bustTime = Number(document.getElementById("6e").textContent)
+
+general_array.push({id:"Online Banking Issues",bust_time:bustTime,arrival_time: 0,time_quantum: count})
+            {#socket.emit("touches",{data:{id:"Online Banking Issues",bust_time:bustTime,arrival_time: 0,time_quantum: count}})#}
+        })
+        document.getElementById("7btn").addEventListener("click",function (){
+            let bustTime
+            bustTime = Number(document.getElementById("7e").textContent)
+general_array.push({id:"Various Fee Charges",bust_time:bustTime,arrival_time: 0,time_quantum: count})
+            {#socket.emit("touches",{data:{id:"Various Fee Charges",bust_time:bustTime,arrival_time: 0,time_quantum: count}})#}
+        })
+        document.getElementById("8btn").addEventListener("click",function (){
+                        let bustTime
+                            bustTime = Number(document.getElementById("8e").textContent)
+            general_array.push({id:"Balance Mistakes",bust_time:bustTime,arrival_time: 0,time_quantum: count})
+                {#socket.emit("touches",{data:{id:"Balance Mistakes",bust_time:bustTime,arrival_time: 0,time_quantum: count}})#}
+        })
+        document.getElementById("9btn").addEventListener("click",function (){
+            let bustTime
+            bustTime = Number(document.getElementById("9e").textContent)
+general_array.push({id:"Security Breaches",bust_time:bustTime,arrival_time: 0,time_quantum: count})
+                {#socket.emit("touches",{data:{id:"Security Breaches",bust_time:bustTime,arrival_time: 0,time_quantum: count}})#}
+        })
+        document.getElementById("10btn").addEventListener("click",function (){
+                           let bustTime
+                            bustTime = Number(document.getElementById("10e").textContent)
+general_array.push({id:"Payment Confusion",bust_time:bustTime,arrival_time: 0,time_quantum: count})
+                {#socket.emit("touches",{data:{id:"Payment Confusion",bust_time:bustTime,b_time:bustTime,arrival_time: 0,time_quantum: count}})#}
+        })
+
+      document.getElementById("submit").addEventListener("click",function (){
+          socket.emit("touches",{data:general_array})
+
+          window.location.reload();
+          console.log(general_array)
+
+      })
+
+        {#socket.on("response",function (data){#}
+        {#    console.log("Received response",data["average_wait_time"],data["report"])#}
+
+    </script>
+
+  </body>
+</html>
