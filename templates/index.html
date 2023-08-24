@@ -14,16 +14,113 @@
         gap: 40px;
         padding: 40px;
       }
+      body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      background-color: #fefcfc;
+    }
 
-      .card {
-        border: 1px solid rgb(145, 145, 145);
-        background-color: white;
-        padding: 30px;
-      }
+      nav {
+  height: 100px;
+  background-color: crimson;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 20px;
+  box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.2);
+}
+
+
+    .container {
+      margin: 20px;
+    }
+
+    .header {
+  font-size: 2rem;
+  font-weight: 900;
+  text-transform: uppercase;
+  background: linear-gradient(to right, crimson, darkred);
+  color: white;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+  text-align: center;
+  letter-spacing: 1px;
+  transform: translateY(0);
+  transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+}
+
+.header:hover {
+  transform: translateY(-2px);
+  box-shadow: 0px 6px 8px rgba(0, 0, 0, 0.2);
+}
+
+#count{
+    border: none;
+  margin: 5px;
+  color: #555;
+  width: 40px; /* Slightly larger width for a better touch target */
+  height: 40px; /* Slightly larger height for a better touch target */
+  font-size: 24px; /* Slightly smaller font size */
+  border-radius: 50%; /* Round shape */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background-color 0.3s ease-in-out, transform 0.2s ease-in-out;
+}
+
+.subheader {
+  font-size: 1.2rem;
+  font-weight: 700;
+  margin-top: 7px;
+  margin-left: 4px;
+  margin-bottom: 25px;
+  color: #555;
+  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.2);
+}
+
+       .counter-container {
+  border: 2px solid crimson;
+  width: 100%;
+  max-width: 200px;
+  margin: 0 auto;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  padding: 15px;
+  background-color: rgba(220, 20, 60, 0.1);
+  border-radius: 10px;
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+  transform: scale(1);
+  transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+}
+
+.counter-container:hover {
+  transform: scale(1.05);
+  box-shadow: 0px 6px 10px rgba(0, 0, 0, 0.2);
+}
+
+
+.card {
+  border: 2px solid rgba(145, 145, 145, 0.5);
+  background-color: #f5f5f5;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+}
+
+.card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0px 8px 12px rgba(0, 0, 0, 0.2);
+}
 
       h2 {
-        margin-top: 0;
-        font-size: 30px;
+          margin-top: 0;
+          font-size: 1.5rem;
       }
 
       .button-element {
@@ -39,13 +136,21 @@
       }
 
       .request-button {
-        padding: 13px 30px;
-        background-color: crimson;
-        border: none;
-        color: white;
-        font-size: 19px;
-        cursor: pointer;
-      }
+  padding: 10px 20px;
+  background: linear-gradient(to right, crimson, darkred); /* Gradient background */
+  border: none;
+  color: white;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background 0.3s ease-in-out, transform 0.2s ease-in-out, box-shadow 0.3s ease-in-out;
+}
+
+.request-button:hover {
+  background: linear-gradient(to right, darkred, crimson); /* Reversed gradient on hover */
+  transform: scale(1.05); /* Slightly scale up on hover */
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2); /* Subtle shadow on hover */
+}
+
 
       .increment {
         background-color: crimson;
@@ -56,42 +161,89 @@
         height: 30px;
         font-size: 25px;
       }
+      .increment-btn {
+  background-color: crimson;
+  border: none;
+  margin: 5px;
+  color: white;
+  width: 30px;
+  height: 30px;
+  font-size: 25px;
+  border-radius: 50%; /* Make it circular */
+  cursor: pointer;
+  transition: background-color 0.3s ease-in-out, transform 0.2s ease-in-out, box-shadow 0.3s ease-in-out;
+}
+
+.increment-btn:hover {
+  background-color: darkred; /* Slightly darker color on hover */
+  transform: scale(1.1); /* Slightly scale up on hover */
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2); /* Subtle shadow on hover */
+}
+
       #decrease,
-      #increase {
-        background-color: crimson;
-        border: none;
-        margin: 5px;
-        color: white;
-        width: 30px;
-        height: 30px;
-        font-size: 25px;
+     #increase {
+  background-color: #ff6b6b; /* Bright crimson color */
+  border: none;
+  margin: 5px;
+  color: white;
+  width: 40px; /* Slightly larger width for a better touch target */
+  height: 40px; /* Slightly larger height for a better touch target */
+  font-size: 24px; /* Slightly smaller font size */
+  border-radius: 50%; /* Round shape */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background-color 0.3s ease-in-out, transform 0.2s ease-in-out;
+}
+
+#decrease,#increase:hover {
+  background-color: #e74c3c; /* Darker shade on hover */
+  transform: scale(1.1);
+}
+
+.simulate {
+  margin: 20px auto;
+  background: linear-gradient(to right, crimson, darkred); /* Changing the background color to a matching shade of blue */
+  padding: 12px 24px;
+  color: white;
+  font-size: 1rem;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  display: block;
+  transition: background-color 0.3s ease-in-out, transform 0.2s ease-in-out;
+}
+
+.simulate:hover {
+  background-color: #2980b9; /* Darker shade on hover */
+  transform: scale(1.05);
+}
+
+        @media screen and (max-width: 768px) {
+      .grid-container {
+        grid-template-columns: 1fr;
       }
-      .simulate{
-          margin-left: 500px;
-          background-color: blue;
-          padding: 13px 30px;
-          color: white;
-          font-size: 15px;
+
+
+
+      .simulate {
+        margin-left: auto;
+        margin-right: auto;
       }
+    }
     </style>
   </head>
-  <body style="background-color: #fefcfc">
-    <nav style="height: 100px; width: 100%; background-color: crimson"></nav>
-    <div style="margin: 50px 100px">
-      <div style="font-size: 50px; font-weight: 900">Customer support</div>
+  <body>
+{#    <nav></nav>#}
+    <div class="container">
+      <div class="header">Customer support</div>
 
       <div
-        style="
-          font-size: 20px;
-          font-weight: 700;
-          margin-top: 7px;
-          margin-left: 4px;
-          margin-bottom: 25px;
-        "
+      class="subheader"
       >
         How may we help you?
       </div>
-      <div class="counter-container" style=" border: 1px solid black;width: 150px;display: flex; justify-content: center; align-items: center; flex-direction: column ; padding: 15px;">
+      <div class="counter-container">
         <div style="font-weight: 900; margin-bottom: 10px; font-size: 20px;">Time Slice</div>
         <div>
             <button id="decrease">-</button>
