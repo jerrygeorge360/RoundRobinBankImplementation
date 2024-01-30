@@ -5,7 +5,7 @@ from flask_socketio import SocketIO
 from robinround import User, round_robin
 
 app = Flask(__name__)
-app.config['SECRET_KEY'] = 'secret!'
+app.config['SECRET_KEY'] = os.environ.get("KEY")
 socketio = SocketIO(app)
 processes = []
 
@@ -48,4 +48,4 @@ def check_connection():
 
 
 if __name__ == '__main__':
-    socketio.run(app, debug=True, host="localhost", port=8000)
+    socketio.run(app, host="localhost", port=8000)
