@@ -44,7 +44,4 @@ def round_robin(processes: list, time_quantum: int):
 
     return {'report': report, 'average_wait_time': average_wait_time}
 
-# test of case of the round_robin algorithm.
-# sage = User('sage', 100, 100, 0)
-# jerry = User('jerry', 100, 100, 0)
-# round_robin([sage, jerry], 4)
+
